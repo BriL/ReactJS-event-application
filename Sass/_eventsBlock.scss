@@ -1,0 +1,128 @@
+.trfs-event-block-container{
+  @include homepage-containers(100px,100px);
+  .trfs-container{
+    h1{
+      text-align: center;
+      padding-bottom: 30px;
+      margin: 0px;
+      @include body-text($color:$trfs-black);
+    }
+    .events-interface{
+      .eventCountDown{
+        margin-bottom: 30px;
+        @include body-text($color:$trfs-black);
+        .countDownTime{
+          text-align: center;
+          @include breakpoint(xs){
+            padding:0px;
+          }
+          background-color: $trfs-grey;
+          color: $trfs-black;
+          .timeCount{
+            @include breakpoint(md){
+              font-size: 5.5rem;
+            }
+            font-size: 2.5rem;
+            line-height: 5rem;
+            font-weight: 300;
+            text-align: center;
+            vertical-align: top;
+            border-right: 1px dotted $trfs-white;
+            padding-top: 10px;
+            margin:0px;
+          }
+          .timeLabel{
+            border-right: 1px dotted $trfs-white;
+            padding-bottom: 15px;
+            margin: 0px;
+            font-size: 11px;
+            @include breakpoint(sm){
+              font-size: 15px;
+              font-weight: 900;
+            }
+
+          }
+          &:last-child{
+            border-bottom-right-radius: 100px;
+            border-top-right-radius: 100px;
+            .timeCount{
+              border: 0px;
+            }
+            .timeLabel{
+              border: 0px;
+            }
+          }
+          &:first-child{
+            border-bottom-left-radius: 100px;
+            border-top-left-radius: 100px;
+          }
+        }
+      }
+      .eventBlock{
+        min-height: 400px;
+        cursor: pointer;
+        border: 2px double $trfs-grey;
+        border-radius: 30px;
+        margin-bottom: 0px;
+        @include breakpoint(xs){
+          margin-bottom: 30px;
+        }
+        @include breakpoint(sm){
+          margin-bottom: 30px;
+        }
+        &.clickedEventBlock{
+          box-shadow: 0 0 40px rgba(0,0,0,1);
+        }
+        .eventName{
+
+        }
+        .eventDesc{
+
+        }
+        .eventDate{
+
+        }
+        .eventAddressName{
+
+        }
+        .eventAddressLoc{
+
+        }
+        .eventSnapCode{
+          max-width: 35%;    
+          margin: 10px;
+        }
+        .eventTwitterHandle{
+
+        }
+      }
+      .eventPaginationWrapper{
+        text-align: center;
+        .eventPagination{
+          margin-top: 0px;
+          & li, & a{
+            margin-left: 10px;
+            font-size: 18px;
+            @include body-text($color:$trfs-black);
+          }
+          .firstPagination, .previousPagination, .nextPagination, .lastPagination{
+            a{
+              border-radius: 100px;
+              background-color: $trfs-grey;
+            }
+          }
+          .currentPagination{
+            a{
+              display: flex;
+              align-items: center;
+              width: 40px;
+              height: 40px;
+              border-radius: 50%;
+              border: 5px double $trfs-grey;
+            }
+          }
+        }
+      }
+    }
+  }
+}
