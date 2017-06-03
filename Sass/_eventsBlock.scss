@@ -59,7 +59,8 @@
         }
       }
       .eventBlock{
-        min-height: 400px;
+        max-height: 420px;
+        min-height: 420px;
         cursor: pointer;
         border: 2px double $trfs-grey;
         border-radius: 30px;
@@ -74,51 +75,72 @@
           box-shadow: 0 0 40px rgba(0,0,0,1);
         }
         .eventName{
-
+          text-align: center;
+          font-family: Metrolox;
+          font-weight: bold;
+          font-size: 18px;
         }
-        .eventDesc{
-
+        .eventDescDate{
+          .eventDesc{
+            overflow: scroll;
+            height: 100px;
+            margin-bottom: 10px;
+          }
+          .eventDate{
+            margin-bottom:10px;
+          }
         }
-        .eventDate{
+        .eventMapContainer{
+           + .eventDescDate{
+            margin-top: 210px;
+          }
+          height: 190px;
+          position: absolute;
+          width: 90%;
 
-        }
-        .eventAddressName{
-
-        }
-        .eventAddressLoc{
-
+          .eventAddress{
+            display: block;
+            width: 100%;
+            height: 100%;
+          }
         }
         .eventSnapCode{
           max-width: 35%;    
           margin: 10px;
         }
-        .eventTwitterHandle{
-
-        }
       }
       .eventPaginationWrapper{
         text-align: center;
         .eventPagination{
+          display: inline-flex;
           margin-top: 0px;
-          & li, & a{
-            margin-left: 10px;
-            font-size: 18px;
-            @include body-text($color:$trfs-black);
+          li {
+            cursor: pointer;
+            margin-left: 15px;
+            &:first-child{
+              margin-left: 0px;
+            }
+            .disable{
+              cursor: not-allowed;
+            }
+            a {
+              width: 45px;
+              height: 45px;
+              border-radius: 50%;
+              font-size: 22px;
+              @include body-text($color:$trfs-black);
+            }
           }
           .firstPagination, .previousPagination, .nextPagination, .lastPagination{
             a{
-              border-radius: 100px;
               background-color: $trfs-grey;
             }
           }
           .currentPagination{
             a{
+              border: 5px double $trfs-grey;
               display: flex;
               align-items: center;
-              width: 40px;
-              height: 40px;
-              border-radius: 50%;
-              border: 5px double $trfs-grey;
             }
           }
         }

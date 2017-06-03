@@ -1,22 +1,22 @@
-import React, {Component} from 'react';
-import PropTypes from 'prop-types';
+import React, {Component} from 'react'
+import PropTypes from 'prop-types'
 
 export default class TrfsEventFilter extends Component {
 
   constructor(props) {
     // props set in trfsEventApp.js
-    super(props);
+    super(props)
     this.state = {
       items: this.props.items,
-    };
+    }
   }
 
   render() {
     const location = this.props.items
-      .map(({eventAdressName, eventAdressLocation}, i) => <option key={i}>{`${eventAdressName} - ${eventAdressLocation}`}</option>);
+      .map(({eventAdressName, eventAdressLocation}, i) => <option key={i}>{`${eventAdressName} - ${eventAdressLocation}`}</option>)
     const items = this.props.items
       .filter(({featured}) => featured)
-      .map(({name}, i) => <option key={i}>{name}</option>);
+      .map(({name}, i) => <option key={i}>{name}</option>)
 
 
     return (
