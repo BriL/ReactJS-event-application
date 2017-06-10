@@ -24,8 +24,9 @@ export default class TrfsEventPagination extends Component {
   updateDimensions() {
     // set the width and height to the state.
     this.setState({ isMobile: this.getDimensions() })
+    let page = (this.state.pager.currentPage == undefined) ? this.props.initialPage : this.state.pager.currentPage
     // sets the initial page to the state.
-    this.setPage(this.props.initialPage)
+    this.setPage(page)
   }
 
   getDimensions(){
@@ -46,7 +47,6 @@ export default class TrfsEventPagination extends Component {
   componentDidMount() {
     // event listner to check the screens size
     window.addEventListener("resize", this.updateDimensions)
-
   }
 
   componentWillUnmount() {
@@ -54,7 +54,14 @@ export default class TrfsEventPagination extends Component {
     window.removeEventListener("resize", this.updateDimensions)
   }
 
-  
+  shouldComponentUpdate(nextProps, nextState) {
+    // check to see if the mobile flag has changed or the pager current page changes
+    if ((this.state.isMobile !== nextState.isMobile) || (this.state.pager.currentPage !== nextState.pager.currentPage)) {
+      return true
+    }
+    // return false otherwise
+    return false
+  }
 
   setPage(page = this.props.initialPage) {
     // set the var from the prop and state.
@@ -135,14 +142,14 @@ export default class TrfsEventPagination extends Component {
         <li className={`previousPagination ${isFirstDisabled}`}>
           <a onClick={() => this.setPage(pager.currentPage - 1)}><i className="fa fa-angle-left" aria-hidden="true"></i></a>
         </li>
-         { !this.state.isMobile && 
+        { !this.state.isMobile && 
           pager.pages.map((page, index) => {
-          let pageActiveClass = ClassNames({'active': pager.currentPage === page})
-          return (
-            <li key={index} className={`currentPagination ${pageActiveClass}`}>
-              <a onClick={() => this.setPage(page)}>{page}</a>
-            </li>
-          )
+            let pageActiveClass = ClassNames({'active': pager.currentPage === page})
+            return (
+              <li key={index} className={`currentPagination ${pageActiveClass}`}>
+                <a onClick={() => this.setPage(page)}>{page}</a>
+              </li>
+            )
           })
         }
         <li className={`nextPagination ${isLastDisabled}`}>
