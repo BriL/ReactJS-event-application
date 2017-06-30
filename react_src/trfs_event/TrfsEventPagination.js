@@ -36,7 +36,7 @@ export default class TrfsEventPagination extends Component {
         body = d.getElementsByTagName('body')[0],
         width = w.innerWidth || documentElement.clientWidth || body.clientWidth
     // return whether the screen is mobile width.
-    return (width <= 767) ? true : false
+    return (width <= 991) ? true : false
   }
 
   componentWillMount() {

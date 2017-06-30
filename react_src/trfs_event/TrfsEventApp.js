@@ -61,13 +61,17 @@ export default class TrfsEventApp extends Component {
         normalizedData[key]['type'] = data.type
         // return either address location or social media info depending on the type of event the item is.
         if(normalizedData[key]['type'] == '1'){
-          normalizedData[key]['eventAdressName'] = data.eventAdress.field_trfs_event_address_name.und[0].safe_value
-          normalizedData[key]['eventAdressLocation'] =  data.eventAdress.field_trfs_event_address_loc.und[0].safe_value
+          normalizedData[key]['eventAdressName'] = data.eventAdress
+          normalizedData[key]['eventAdressLocation'] =  data.eventAdressLoc
         }
         else if(normalizedData[key]['type'] == '2'){
-          data.eventSocialMedia.map(item=> {
+          data.eventSocialMedia.map(code=> {
+            // will have to change if add more snapcodes
+            let codeUrl = (code == 'lyrikal.png') ? 'b.lyrikal' : 'lasabree';
             normalizedData[key]['snapCode'].push({
-              code: item.field_event_snapcode.und[0].full_url
+              // the path to the public directory in drupal
+              code: `${Drupal.settings.trfsRestfulApi.filePath}/${code}`,
+              url: `https://www.snapchat.com/add/${codeUrl}`
             })
           }) // end map
         }
@@ -83,8 +87,8 @@ export default class TrfsEventApp extends Component {
       if (singleElement.type == 1) {
         // format the address for the URL
         const jsonAddress = singleElement.eventAdressLocation.split(' ').join('+')
-        // get a list of promises for the address 
-        promises.push(Axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${jsonAddress}&key=AIzaSyC2qlk1yCmaham5zCSFcsWpV7twj04tFWU`))
+        // get a list of promises for the address IE api key stored in drupal settings
+        promises.push(Axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${jsonAddress}&key=${Drupal.settings.trfsRestfulApi.googleApiKey}`))
       }
     })
     // retrieve all the data from the promises
@@ -135,7 +139,8 @@ export default class TrfsEventApp extends Component {
               return <TrfsEventBlock 
                         clickedEvent={clicked} 
                         item={item} 
-                        key={item.id} 
+                        key={item.id}
+                        itemCount={this.state.pageOfItems.length}
                         onChangeEvent={this.changeEventTime} />
             }) // end map
           }
