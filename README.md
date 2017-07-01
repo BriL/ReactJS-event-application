@@ -35,3 +35,5 @@ function trfs_restful_api_resource_file_load($files) {
   }
 }
 ```
+
+Example: dev.rarefewsociety.com
