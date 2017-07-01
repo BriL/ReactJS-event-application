@@ -135,12 +135,16 @@ export default class TrfsEventApp extends Component {
         <div className="row">
           {
             this.state.pageOfItems.map((item, key)=> {
-              let clicked = (this.state.activeKey == item.id) ? true : false
+              let clicked = this.state.activeKey == item.id ? true : false
+              // setting the offset for the event block columns
+              let offset = this.state.pageOfItems.length == 1 ? 4
+              : this.state.pageOfItems.length == 2 && key == 0 ? 2
+              : 0
               return <TrfsEventBlock 
                         clickedEvent={clicked} 
                         item={item} 
                         key={item.id}
-                        itemCount={this.state.pageOfItems.length}
+                        offset={offset}
                         onChangeEvent={this.changeEventTime} />
             }) // end map
           }

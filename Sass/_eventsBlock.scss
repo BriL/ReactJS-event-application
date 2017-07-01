@@ -58,7 +58,17 @@
           }
         }
       }
+      .featured-star{
+        float: right;
+        position: absolute;
+        z-index: 1;
+        font-size: 50px;
+        right: 0px;
+        top: -15px;
+        @include transform(100deg);
+      }
       .eventBlock{
+        padding: 0px;
         max-height: 420px;
         min-height: 420px;
         cursor: pointer;
@@ -81,22 +91,25 @@
           font-size: 18px;
         }
         .eventDescDate{
+          padding-top: 10px;
           .eventDesc{
             overflow: scroll;
-            height: 100px;
+            height: 130px;
             margin-bottom: 10px;
           }
           .eventDate{
+            text-align: center;
             margin-bottom:10px;
+            @include body-text($color:$trfs-black);
           }
         }
         .eventMapContainer{
            + .eventDescDate{
-            margin-top: 210px;
+            margin-top: 200px;
           }
           height: 190px;
           position: absolute;
-          width: 90%;
+          width: 100%;
 
           .eventAddress{
             display: block;
@@ -105,11 +118,18 @@
           }
         }
         .addressSnap{
+          background-color: $trfs-grey;
           height: 190px;
+          .col-xs-6{
+            margin-top: 30px;
+            a {
+              text-align: center;
+              display: block;
+            }
+          }
         }
-        .eventSnapCode{
-          max-width: 42%;    
-          margin: 10px;
+        .eventSnapCode{  
+          max-height: 124px;
         }
       }
       .eventPaginationWrapper{
@@ -137,6 +157,11 @@
           .firstPagination, .previousPagination, .nextPagination, .lastPagination{
             a{
               background-color: $trfs-grey;
+            }
+            &.disabled{
+              a {
+                opacity: 0.55;
+              }
             }
           }
           .currentPagination{

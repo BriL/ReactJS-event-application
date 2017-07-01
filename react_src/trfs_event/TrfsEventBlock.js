@@ -7,7 +7,7 @@ const propTypes = {
   clickedEvent: PropTypes.bool.isRequired,
   item: PropTypes.array.isRequired,
   onChangeEvent: PropTypes.func.isRequired,
-  itemCount: PropTypes.number.isRequired,
+  offset: PropTypes.number.isRequired,
 }
 
 export default class TrfsEventBlock extends Component {
@@ -17,7 +17,7 @@ export default class TrfsEventBlock extends Component {
     this.state = {
       item: this.props.item,
       isActive: this.props.clickedEvent,
-      itemCount: this.props.itemCount
+      offset: this.props.offset
     }
   }
 
@@ -37,8 +37,8 @@ export default class TrfsEventBlock extends Component {
     const date = new Intl.DateTimeFormat("en-US").format(new Date(this.state.item.time))
     let blockClasses = ClassNames({
       'col-md-4': true,
-      'col-md-offset-4': this.state.itemCount == 1,
-      'col-md-offset-2': this.state.itemCount == 2
+      'col-md-offset-4': this.state.offset == 4,
+      'col-md-offset-2': this.state.offset == 2
     })
     let classes = ClassNames({
       'col-sm-12 eventBlock': true,
@@ -47,24 +47,32 @@ export default class TrfsEventBlock extends Component {
     })
     return (
       <div className={blockClasses}>
+        {this.state.item.featured ?
+          <i className="fa fa-star featured-star" aria-hidden="true"></i>
+        : ''
+        }
         <div className={classes} onClick={() => this.handleEventTime()}>
           <h5 className="eventName">{this.state.item.name}</h5>
           {this.state.item.type == '1' ?
             <TrfsEventGoogleMap name={this.state.item.eventAdressName} location={this.state.item.eventAdressLocation} />
           : this.state.item.type == '2' ? 
             <div className="addressSnap">
-              {this.state.item.snapCode.map((snap, key)=> 
-                <a href={snap.url} target='_blank'><img key={key} className="eventSnapCode" src={snap.code} /></a>
-              )}
+              {this.state.item.snapCode.map((snap, key)=> {
+                let snapClasses = ClassNames({
+                  'col-xs-6': true, 
+                  'col-xs-offset-3': this.state.item.snapCode.length == 1 
+                })
+                return(
+                  <div key={key} className={snapClasses}>
+                    <a href={snap.url} target='_blank'><img className="eventSnapCode" src={snap.code} /></a>
+                  </div>
+                )
+              })}
             </div>
           : <div className="eventLocError"><p>Error occured when pulling in Location Data</p></div>}
           <div className="eventDescDate">
-            <p className="eventDate">{`${date} @ ${time}`}</p>
-            <p className="eventDesc">{this.state.item.desc}</p>
-            {this.state.item.featured ?
-              <p className="">FEATURED</p>
-            : ''
-            }
+            <p className="col-xs-12 eventDate">{`${date} @ ${time}`}</p>
+            <p className="col-xs-12 eventDesc">{this.state.item.desc}</p>
           </div>
         </div>
       </div>
