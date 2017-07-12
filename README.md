@@ -7,7 +7,7 @@ Before setup needed before development work.
 - Run **npm install** this will install all required packages that needs to be included in the application
 - You will need to either create your own API enpoint or use AJAX to retireve the event information from the database. *This project uses the enpoint method*
 - **The Scss uses variables and mixins that isnt icluded in this project**
-- Run gulp in the docroot 
+- Run gulp --production in the docroot 
 
 PHP Code needed for the application
 --------------

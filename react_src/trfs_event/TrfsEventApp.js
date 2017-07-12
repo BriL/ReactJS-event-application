@@ -133,8 +133,7 @@ export default class TrfsEventApp extends Component {
         <h1>Upcoming Events</h1>
         <TrfsEventCountDown eventTime={this.state.clickedEventTime} />
         <div className="row">
-          {
-            this.state.pageOfItems.map((item, key)=> {
+          {this.state.pageOfItems.map((item, key)=> {
               let clicked = this.state.activeKey == item.id ? true : false
               // setting the offset for the event block columns
               let offset = this.state.pageOfItems.length == 1 ? 4
@@ -146,15 +145,17 @@ export default class TrfsEventApp extends Component {
                         key={item.id}
                         offset={offset}
                         onChangeEvent={this.changeEventTime} />
-            }) // end map
-          }
+          })}
         </div>
         <div className="row">
           <div className="eventPaginationWrapper">
              {this.state.items.length ? (
                 <TrfsEventPagination items={this.state.items} onChangePage={this.onChangePage} />
               ) : (
-                <div className="eventLoad"><h2>Loading Events.......</h2></div>
+                <div className="eventLoad">
+                  <i className="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+                  <span className="sr-only">Loading........</span>
+                </div>
               )}
           </div>
         </div>

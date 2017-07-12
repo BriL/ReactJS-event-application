@@ -1,5 +1,8 @@
 var gulp = require('gulp'),
     gutil = require('gulp-util'),
+    argv = require('yargs').argv,
+    buffer = require('vinyl-buffer'),
+    gulpif = require('gulp-if'),
     sass = require('gulp-sass'),
     uglify = require('gulp-uglify'),
     sourcemaps = require('gulp-sourcemaps'),
@@ -27,27 +30,31 @@ gulp.task('sass', function() {
 });
 
 gulp.task('watch', function() {
-  gulp.watch(jsSources, ['js']);
   gulp.watch( srcReact , ['jsreact']);
   gulp.watch(sassSources, ['sass']);
 });
 
+// Build an output file. Babelify is used to transform 'jsx' code to JavaScript code. 
 gulp.task('jsreact', function() {
+  // use production build
+  if (argv.production){
+    process.env.NODE_ENV = 'production';
+  }
   gulp.src(srcApp)
     .pipe(browserify({
       transform: [babelify.configure({
         presets: ['es2015', 'react']
       })],
-      debug: true
+      debug: argv.production ? false : true,
     }))
-    .on('error', function (err) {
-      console.error('Error!', err.message);
-    })
+    .pipe(gulpif(argv.production, buffer()))    // Stream files
+    .pipe(gulpif(argv.production, uglify().on('error', gutil.log))) // minifiy files
     .pipe(sourcemaps.init({ loadMaps: true }))
     .pipe(sourcemaps.write('./maps'))
-    // .pipe(uglify().on('error', gutil.log)) minify for production
-    .pipe(gulp.dest(app));
+    .pipe(gulp.dest(app))
+    .on('error', function (err) {
+      console.error('Error!', err.message);
+    }); 
 });
-
 
 gulp.task('default', ['watch', 'jsreact', 'sass']);

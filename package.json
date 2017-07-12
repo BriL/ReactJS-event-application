@@ -11,6 +11,7 @@
     "gulp-browserify": "^0.5.1",
     "gulp-concat": "latest",
     "gulp-connect": "latest",
+    "gulp-if": "^2.0.2",
     "gulp-react": "^3.1.0",
     "gulp-sass": "latest",
     "gulp-sourcemaps": "latest",
@@ -19,7 +20,9 @@
     "jshint-stylish": "^2.2.1",
     "lodash": "^4.17.4",
     "react": "^15.5.4",
-    "react-dom": "^15.5.4"
+    "react-dom": "^15.5.4",
+    "vinyl-buffer": "^1.0.0",
+    "yargs": "^8.0.2"
   },
   "author": "TRFS",
   "license": "MIT",

@@ -33,7 +33,7 @@ export default class TrfsEventBlock extends Component {
   }
 
   render() {
-    const time = this.state.item.time.toLocaleTimeString()
+    const time = this.state.item.time.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})
     const date = new Intl.DateTimeFormat("en-US").format(new Date(this.state.item.time))
     let blockClasses = ClassNames({
       'col-md-4': true,
